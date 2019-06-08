@@ -7,6 +7,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { DataTableComponent } from './data-table/data-table.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { DataTableService } from './data-table/data-table-service.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -19,9 +21,9 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
     BrowserAnimationsModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule, HttpClientModule
   ],
-  providers: [],
+  providers: [DataTableService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
