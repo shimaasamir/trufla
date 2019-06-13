@@ -14,7 +14,7 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   sorting: MatSortable;
   MyDataSource: any;
-  displayedColumns = ['id', 'title', 'body'];
+  displayedColumns = ['id', 'title', 'url'];
 
 
   constructor(public dataService: DataTableService) { }

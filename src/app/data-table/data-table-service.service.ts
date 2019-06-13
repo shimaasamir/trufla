@@ -16,6 +16,6 @@ export class DataTableService {
   }
   // To fill the Datatable for Default Table [Dummy Data]  
   public GetAllRecords() {
-    return this.http.get(this._baseUrl + 'posts')
+    return this.http.get(this._baseUrl + 'photos')
   }
 }
