@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
-import { MatPaginator, MatSort, MatTable, MatTableDataSource } from '@angular/material';
-import { DataTableDataSource, DataTableItem } from './data-table-datasource';
+import { MatPaginator, MatSort, MatTable, MatTableDataSource, MatSortable } from '@angular/material';
 import { DataTableService } from './data-table-service.service';
 
 @Component({
@@ -11,14 +10,13 @@ import { DataTableService } from './data-table-service.service';
 export class DataTableComponent implements AfterViewInit, OnInit {
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
   @ViewChild(MatSort, { static: true }) sort: MatSort;
-  @ViewChild(MatTable, { static: true }) table: MatTable<DataTableItem>;
-  // dataSource: DataTableDataSource;
+  @ViewChild(MatTable, { static: true }) table: MatTable<any>;
 
+  sorting: MatSortable;
   MyDataSource: any;
   displayedColumns = ['id', 'title', 'body'];
 
-  // /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  // displayedColumns = ['id', 'name'];
+
   constructor(public dataService: DataTableService) { }
 
   RenderDataTable() {
@@ -27,9 +25,8 @@ export class DataTableComponent implements AfterViewInit, OnInit {
         res => {
           this.MyDataSource = new MatTableDataSource();
           this.MyDataSource.data = res;
-          this.MyDataSource.paginator = this.paginator;
-          this.MyDataSource.sort = this.sort;
-          this.table.dataSource = this.MyDataSource.data;
+          this.setData(this.MyDataSource.data);
+
 
 
           console.log(this.MyDataSource.data);
@@ -41,11 +38,19 @@ export class DataTableComponent implements AfterViewInit, OnInit {
 
   ngOnInit() {
     this.RenderDataTable();
+
+  }
+  ngOnChanges() {
+    this.setData(this.MyDataSource.data);
   }
   ngAfterViewInit() {
-    // this.MyDataSource.sort = this.sort;
-    // this.MyDataSource.paginator = this.paginator;
-    // this.table.dataSource = this.MyDataSource;
-    // console.log(this.MyDataSource)
+
+  }
+  setData(data) {
+    if (Array.isArray(data)) {
+      this.MyDataSource = new MatTableDataSource(data);
+      this.MyDataSource.paginator = this.paginator;
+      this.MyDataSource.sort = this.sort;
+    }
   }
 }
