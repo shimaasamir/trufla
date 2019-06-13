@@ -53,4 +53,11 @@ export class DataTableComponent implements AfterViewInit, OnInit {
       this.MyDataSource.sort = this.sort;
     }
   }
+  applyFilter(filterValue: string) {
+    this.MyDataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.MyDataSource.paginator) {
+      this.MyDataSource.paginator.firstPage();
+    }
+  }
 }
